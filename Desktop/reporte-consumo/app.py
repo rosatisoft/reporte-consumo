@@ -49,5 +49,8 @@ def process_data(recetas_path, ventas_path):
     
     return report_filename
 
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Usa el puerto que Railway asigna
+    app.run(host="0.0.0.0", port=port, debug=True)
