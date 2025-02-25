@@ -50,8 +50,16 @@ def process_data(recetas_path, ventas_path):
     consumo_total_df = consumo_df.groupby(["Ingrediente", "Unidad"])["Consumo Total"].sum().reset_index()
     report_filename = os.path.join(REPORTS_FOLDER, "reporte_consumo.xlsx")
     consumo_total_df.to_excel(report_filename, index=False)
+
+    print(f"✅ Reporte generado en: {report_filename}")
     
     return report_filename
+    
+from flask import send_from_directory
+
+@app.route('/reports/<filename>')
+def serve_report(filename):
+    return send_from_directory(REPORTS_FOLDER, filename, as_attachment=True)
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))  # Usa el puerto que Render asigna
