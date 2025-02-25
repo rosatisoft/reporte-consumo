@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subir Archivos</title>
+</head>
+<body>
+    <h1>Subir Recetas y Ventas</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="recetas">Archivo de recetas (CSV):</label>
+        <input type="file" name="recetas" required><br><br>
+
+        <label for="ventas">Archivo de ventas (Excel):</label>
+        <input type="file" name="ventas" required><br><br>
+
+        <button type="submit">Subir y Procesar</button>
+    </form>
+</body>
+</html>
