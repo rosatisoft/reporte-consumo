@@ -25,7 +25,7 @@ def upload_files():
             ventas_file.save(ventas_path)
 
             report_path = process_data(recetas_path, ventas_path)
-            return render_template('result.html', report_path=report_path)
+            return render_template('result.html', report_path=f"/reports/{os.path.basename(report_path)}")
         else:
             return "Error: Debes subir ambos archivos."
 
