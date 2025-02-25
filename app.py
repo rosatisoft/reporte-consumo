@@ -12,21 +12,25 @@ os.makedirs(REPORTS_FOLDER, exist_ok=True)
 def index():
     return render_template('index.html')
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_files():
-    recetas_file = request.files['recetas']
-    ventas_file = request.files['ventas']
-    
-    if recetas_file and ventas_file:
-        recetas_path = os.path.join(UPLOAD_FOLDER, recetas_file.filename)
-        ventas_path = os.path.join(UPLOAD_FOLDER, ventas_file.filename)
-        recetas_file.save(recetas_path)
-        ventas_file.save(ventas_path)
+    if request.method == 'POST':
+        recetas_file = request.files['recetas']
+        ventas_file = request.files['ventas']
         
-        report_path = process_data(recetas_path, ventas_path)
-        return render_template('result.html', report_path=report_path)
-    else:
-        return "Error: Debes subir ambos archivos."
+        if recetas_file and ventas_file:
+            recetas_path = os.path.join(UPLOAD_FOLDER, recetas_file.filename)
+            ventas_path = os.path.join(UPLOAD_FOLDER, ventas_file.filename)
+            recetas_file.save(recetas_path)
+            ventas_file.save(ventas_path)
+
+            report_path = process_data(recetas_path, ventas_path)
+            return render_template('result.html', report_path=report_path)
+        else:
+            return "Error: Debes subir ambos archivos."
+
+    # Si la solicitud es GET, mostrar el formulario de subida
+    return render_template('upload.html')
 
 def process_data(recetas_path, ventas_path):
     ingredientes_df = pd.read_csv(recetas_path)
