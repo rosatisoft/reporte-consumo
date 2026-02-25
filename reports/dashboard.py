@@ -4,7 +4,7 @@ import json
 from lector import get_emails # Tu extractor ya probado
 
 # CONFIGURACIÓN PRO
-API_KEY = "AIzaSyCvA4qs1onmP2zzYwa7YM8SyIYeF32ZIec"
+API_KEY = "tu API_KREY aqui"
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('models/gemini-2.5-flash')
 
